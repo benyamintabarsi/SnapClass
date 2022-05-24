@@ -1,0 +1,110 @@
+<ng-template #content let-modal>
+    <div class="rubric-landing" *ngIf="modalView == 0">
+        <div class="modal-header text-center">
+            <h5 class="modal-title">Create New Rubric</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="updateRubrics(); modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+          <div class="container align-content-center d-flex h-100">
+            <div class="row w-100 m-0">
+              <div class="col-6 justify-content-center p-5">
+                <div class="content-border p-3 pointer" (click)="toggleView(1)">
+                    <div class="row justify-content-center pb-3">
+                        <i class="far fa-file"></i>
+                    </div>
+                    <div class="row justify-content-center">
+                      <span class="text-center">New Blank Rubric</span>
+                    </div>
+                </div>
+              </div>
+              <div class="col-6 justify-content-center p-5">
+                  <div class="content-border p-3 pointer" (click)="toggleView(2)">
+                    <div class="row justify-content-center pb-3">
+                        <i class="far fa-copy"></i>
+                    </div>
+                    <div class="row justify-content-center">
+                          <span class="text-center">Use Existing Template</span>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <form [formGroup]="addRubricForm" (ngSubmit)="onSubmit()" *ngIf="modalView == 1">
+        <div class="modal-header text-center">
+            <h5 class="modal-title">Create New Rubric</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="updateRubrics(); modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+          <div id="rubric" class="rubric-container">
+              <div class="field-wrap row">
+                  <label class="col-5 text-right">Rubric Name<span class="req"> *</span> </label>
+                  <input class="col-6" type="text" formControlName="name" autocomplete="off"/>
+              </div>
+              <div class="field-wrap row pt-3">
+                  <label class="col-5 text-right">Rubric Description<span class="req"> *</span> </label>
+                  <textarea rows="3" cols="50" class="col-6 description-box" formControlName="description" autocomplete="off"></textarea>
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" (click)="setTutorialStatus(getTutorialStatus(), getTutorialSubStatus() + 1)">Add New Rubric</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close" (click)="updateRubrics(); modal.dismiss()">Cancel</button>
+        </div>
+    </form>
+    <div class="rubric-selector" *ngIf="modalView == 2">
+        <div class="modal-header text-center">
+            <h5 class="modal-title">Create New Rubric</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="updateRubrics(); modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="container" *ngIf="rubrics && rubrics.length > 0">
+          <div class="row justify-content-center py-4">
+            <h4>Select a Rubric to Duplicate</h4>
+          </div>
+          <div class="row mx-4 mb-2 border-bottom">
+              <div class="col-6 font-weight-bold">Rubric Name</div>
+              <div class="col-6 font-weight-bold">Rubric Description</div>
+          </div>
+          <div class="rubric-wrapper">
+            <div class="row mx-4 pointer" (click)="selectRubric(rubric)" *ngFor="let rubric of rubrics">
+              <div class="rubric-not-selected-wrapper py-2 row w-100 m-0" *ngIf="!selectedRubric || rubric.id != selectedRubric.id">
+                  <div class="col-6">{{rubric.name}}</div>
+                  <div class="col-6">{{rubric.description | slice:0:50}}</div>
+              </div>
+              <div class="rubric-selected-wrapper font-weight-bold py-2 row w-100 m-0" *ngIf="selectedRubric && rubric.id == selectedRubric.id">
+                  <div class="col-6">{{rubric.name}}</div>
+                  <div class="col-6">{{rubric.description | slice:0:50}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!rubrics || rubrics.length == 0">
+          <h4 class="py-4 text-center">No template rubrics found</h4>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="useTemplate()" *ngIf="selectedRubric">Next</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss()">Cancel</button>
+        </div>
+    </div>
+</ng-template>
+
+<div *ngIf="getTutorialStatus() == 2 && getTutorialSubStatus() == 1; else elseBlock" [popper]="p1"
+    [popperShowOnStart]="true"
+    [popperTrigger]="'none'"
+    [popperPlacement]="'bottom'"
+
+    [popperHideOnClickOutside]="false">
+    <popper-content #p1>
+            <p><b>Click here to Add a Rubric!</b> Select if you want to create a new rubric or use an existing template.</p>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close" (click)="setTutorialStatus(2,2)">Skip </button>
+    </popper-content>
+    <a class="btn btn-primary" (click)="p1.hide(); open(content)"><i class="fas fa-plus"></i> Add Rubric</a>
+</div>
+<ng-template #elseBlock><a class="btn btn-primary" (click)="open(content)"><i class="fas fa-plus"></i> Add Rubric</a></ng-template>

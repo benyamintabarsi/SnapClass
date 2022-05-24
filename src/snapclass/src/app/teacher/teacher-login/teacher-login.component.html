@@ -1,0 +1,109 @@
+<div class="teacher-view">
+  <div class="row">
+    <div class="w-100 form-col">
+          <div class="form">
+              <div class="tab-content mt-5">
+                <div class="alert-response">
+                    <!-- <div class ="alert alert-danger" role="alert">
+                        <h4 class="alert-heading">Something Went Wrong!</h4>
+                            <hr>
+                            <p> Invalid Username Or Password! </p>
+                            </div> -->
+                    </div>
+
+                <form [formGroup]="teacherForm" (ngSubmit)="onSubmit()" *ngIf="login === 0">
+                  <div id="signup" class="container">
+                    <h1>Create Account</h1>
+                    <hr/>
+                    <div class="signup-row row justify-content-center">
+                      <div class="form-wrap col-6">
+                        <div class="field-wrap row">
+                          <label class="col-6">
+                            Name<span class="req"> *</span>
+                          </label>
+                          <input class="col-6" type="text" formControlName="name" required autocomplete="off" />
+                        </div>
+
+                        <div class="field-wrap row">
+                          <label class="col-6">
+                            Preferred Name
+                          </label>
+                          <input class="col-6" type="text" formControlName="preferred_name" autocomplete="off"/>
+                        </div>
+
+                        <div class="field-wrap row">
+                          <label class="col-6">
+                            Email Address
+                          </label>
+                          <input class="col-6" type="email" formControlName="username" autocomplete="off"/>
+                        </div>
+
+                        <div class="field-wrap row">
+                          <label class="col-6">
+                            Set A Password<span class="req"> *</span>
+                          </label>
+                          <input class="col-6" type="password" formControlName="pswd" required autocomplete="off"/>
+                        </div>
+
+                        <div class="button-wrap row justify-content-center">
+                          <button type="submit" [disabled]="!teacherForm.valid" class="button button-block">Create Account</button>
+                        </div>
+                      </div>
+                    </div>
+                    <h1>Login to Snapclass teacher account</h1>
+                    <hr/>
+
+                    <div class="signup-row row justify-content-center">
+                      <div class="form-wrap col-6">
+                        <div class="toggle-button-wrap row justify-content-center">
+                          <button class="tab" (click)="login=1">Log In</button>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </form>
+
+                <form [formGroup]="teacherLoginForm" (ngSubmit)="onLoginSubmit()" *ngIf="login === 1">
+                  <div ng-show="login" id="login" class="container">
+                    <h1>Welcome Back!</h1>
+                    <hr/>
+                    <div class="login-row row justify-content-center">
+                      <div class="form-wrap col-6">
+                        <div class="field-wrap row">
+                          <label class="col-6">
+                            Email Address<span class="req"> *</span>
+                          </label>
+                          <input class="col-6" type="text" formControlName="username" required autocomplete="off"/>
+                        </div>
+
+                        <div class="field-wrap row">
+                          <label class="col-6">
+                            Password<span class="req"> *</span>
+                          </label>
+                          <input class="col-6" type="password" formControlName="pswd" required autocomplete="off"/>
+                        </div>
+                        <div class="button-wrap row justify-content-center">
+                          <button class="button button-block">Log In</button>
+                        </div>
+                      </div>
+                    </div>
+                    <h1>Create a Snapclass teacher account</h1>
+                    <hr/>
+
+                    <div class="login-row row justify-content-center">
+                      <div class="form-wrap col-6">
+                        <div class="toggle-button-wrap row justify-content-center">
+                          <button class="tab" (click)="login=0">Sign Up</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+<router-outlet></router-outlet>

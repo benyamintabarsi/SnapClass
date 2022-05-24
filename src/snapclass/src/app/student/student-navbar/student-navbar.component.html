@@ -1,0 +1,15 @@
+<div id="sidenav" class="sidenav" *ngIf="router.url.includes(studentLanding) && !router.url.includes(teacherLanding) && !router.url.includes(studentLogin)">
+    <nav class="w-100">
+        <ul class= "list-group list-group-flush pt-4" style="list-style-type:none;" >
+            <li class="list-group-item text-center nav-header" *ngIf="user">Welcome {{user.name}}!</li>
+            <li class="list-group-item text-center p-2" (click)="navigate(studentLanding)"><a><i class="fas fa-home"></i> Home</a></li>
+            <li class="list-group-item text-center pt-4 nav-header" *ngIf="courses">View Course</li>
+            <li class="list-group-item text-center p-2" *ngFor="let course of courses" (click)="navigate('student/course/' + course.id)"><a><i class="fas fa-school"></i> {{course.name}}</a></li>
+            <li class="list-group-item text-center pt-4 nav-header" *ngIf="assignments">View Assignment</li>
+            <li class="list-group-item text-center p-2" *ngFor="let assignment of assignments" (click)="navigate('student/assignment/' + assignment.id)"><a><i class="fas fa-file-code"></i> {{assignment.name}}</a></li>
+            <li class="list-group-item text-center pt-4 nav-header">Account Management</li>
+            <li class="list-group-item text-center p-2" (click)="navigate(studentAccount)"><a> <i class="fas fa-user-circle"></i> My Account </a></li>
+            <li class="list-group-item text-center p-2" (click)="navigate('/')"><a><i class="fas fa-sign-out-alt"></i> Logout </a> </li>
+        </ul>
+    </nav>
+</div>

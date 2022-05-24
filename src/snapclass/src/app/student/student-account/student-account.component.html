@@ -1,0 +1,133 @@
+<div class="student-view">
+  <div class="row m-0">
+    <div class="w-100 form-col">
+        <div class="tab-content w-100 h-100" *ngIf="pswd === 0">
+            <div class="container mb-2 py-3">
+                <h1 class="font-weight-bold">Edit Account</h1>
+                <hr class="border"/>
+            </div>
+            <div class="bg-white mx-5 pt-5">
+              <div class="form container h-100">
+                <div class="alert-response"></div>
+                <form [formGroup]="studentForm" (ngSubmit)="onSubmit()" *ngIf="pswd === 0">
+                  <div id="account">   
+                    <div class="account-row row justify-content-center">
+                      <div class="form-wrap col-6">
+                        <div class="field-wrap row">
+                          <label class="col-6">
+                            Name<span class="req"> *</span>
+                          </label>
+                          <label class="col-6">
+                            {{user.name}}
+                          </label>
+                        </div>
+        
+                        <div class="field-wrap row">
+                          <label class="col-6">
+                            Student ID<span class="req"> *</span>
+                          </label>
+                          <label class="col-6">
+                            {{user.username}}
+                          </label>
+                        </div>
+                    
+                        <div class="field-wrap row">
+                          <label class="col-6">
+                            Preferred Name
+                          </label>
+                          <label class="col-6">
+                            {{user.preferred_name}}
+                          </label>
+                        </div>
+        
+                        <div class="field-wrap row">
+                          <label class="col-6">
+                            Email Address
+                          </label>
+                          <label class="col-6">
+                            {{user.email}}
+                          </label>
+                        </div>
+        
+                        <div class="field-wrap row">
+                          <label class="col-6">
+                            Year Of Birth 
+                          </label>
+                          <label class="col-6">
+                            {{user.yob}}
+                          </label>
+                        </div>
+        
+                        <div class="button-wrap row justify-content-center">
+                          <button type="submit" class="button button-block">Save Account</button> 
+                        </div>
+                      </div>
+                    </div>
+                    <hr/>                    
+                    <div class="pswd-row row justify-content-center">
+                      <div class="form-wrap col-6">
+                        <div class="toggle-button-wrap row justify-content-center">
+                          <button class="tab" (click)="pswd = 1">Change Password</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+        </div>
+        <div class="tab-content w-100 h-100" *ngIf="pswd === 1">
+            <div class="container mb-2 py-3">
+                <h1 class="font-weight-bold">Change Password Form</h1>
+                <hr class="border"/>
+            </div>
+            <div class="bg-white mx-5 pt-5">
+              <div class="form container h-100">
+                <div class="alert-response"></div>
+                <form [formGroup]="studentPasswordForm" (ngSubmit)="onPasswordSubmit()">
+                    <div ng-show="pswd" id="pswd" class="container">   
+                      <div class="pswd-row row justify-content-center">
+                        <div class="form-wrap col-6">
+                          <div class="field-wrap row">
+                            <label class="col-6">
+                              Current Password<span class="req"> *</span>
+                            </label>
+                            <input class="col-6" type="password" formControlName="oldPassword" required autocomplete="off"/>
+                          </div>
+                        
+                          <div class="field-wrap row">
+                              <label class="col-6">
+                                New Password<span class="req"> *</span>
+                              </label>
+                              <input class="col-6" type="password" formControlName="newPassword" required autocomplete="off"/>
+                          </div>
+
+                          <div class="field-wrap row">
+                              <label class="col-6">
+                                Confirm New Password<span class="req"> *</span>
+                              </label>
+                              <input class="col-6" type="password" formControlName="newPasswordConfirm" required autocomplete="off"/>
+                          </div>
+                          <div class="button-wrap row justify-content-center">
+                            <button class="button button-block" [disabled]="!studentPasswordForm.valid">Save Password</button> 
+                          </div> 
+                        </div>
+                      </div>
+                      <hr/>                      
+                      <div class="account-row row justify-content-center">
+                        <div class="form-wrap col-6">
+                          <div class="toggle-button-wrap row justify-content-center">
+                            <button class="tab" (click)="pswd = 0">Edit Account</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,82 @@
+<div class="student-view" *ngIf="assignment">
+  <script type="text/javascript" src="config.js"></script>
+  <div class="row w-100 h-100">
+    <div id="snapframe">
+      <button class="snap-fullscreen-toggle" (click)="toggleFullscreen()">Fullscreen</button>
+      <iframe
+        class="w-100 h-100"
+        id="snap-canvas"
+        [src]="
+          '/' + (assignment.environment | lowercase) + '.html'
+            | safe: 'resourceUrl'
+        "
+      ></iframe>
+    </div>
+
+    <div class="col">
+      <div class="row pt-5 pb-3 h4 justify-content-center">
+        {{ assignment.name }}
+      </div>
+      <div class="row h6 text-center pb-3 px-2">
+        {{ assignment.description }}
+      </div>
+      <div class="row h6 text-center pb-3 px-2">
+        Environment: {{ assignment.environment }}
+      </div>
+      <div class="row h6 pb-3 text-center px-2">
+        Due: {{ assignment.due_date | date: "medium" }}
+      </div>
+      <hr />
+      <div
+        class="row py-2 justify-content-center"
+        *ngIf="!submission || !submission.is_submitted"
+      >
+        <button class="col-6 button" (click)="saveAssignment()">Save</button>
+      </div>
+      <div
+        class="row py-2 justify-content-center"
+        *ngIf="!submission || !submission.is_submitted"
+      >
+        <ng-template #content let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title text-center" id="modal-basic-title">
+              Are you sure you want to submit <i>{{ assignment.name }}</i
+              >?
+            </h4>
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="modal.dismiss('Cross click')"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div
+                class="col-6 text-center w-100 h-6"
+                (click)="submitAssignment(); modal.dismiss('Cross click')"
+                style="cursor: pointer"
+              >
+                Yes
+              </div>
+              <div
+                class="col-6 text-center w-100 h-6"
+                (click)="modal.dismiss('Cross click')"
+                style="cursor: pointer"
+              >
+                No
+              </div>
+            </div>
+          </div>
+        </ng-template>
+
+        <button class="col-6 button" (click)="open(content)">Submit</button>
+      </div>
+      <div class="row py-2" *ngIf="submission && submission.is_submitted">
+        <div class="text-center h4 w-100">Feedback</div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,139 @@
+<ng-template #content let-modal>
+  <div class="category-landing" *ngIf="modalView == 0">
+    <div class="modal-header text-center">
+      <h5 class="modal-title">Create New Category</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+              (click)="updateCategories(); modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="container align-content-center d-flex h-100">
+        <div class="row w-100 m-0">
+          <div class="col-6 justify-content-center p-5">
+            <div class="content-border p-3 pointer" (click)="toggleView(1)">
+              <div class="row justify-content-center pb-3">
+                <i class="far fa-file"></i>
+              </div>
+              <div class="row justify-content-center">
+                <span class="text-center">New Blank Category</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 justify-content-center p-5">
+            <div class="content-border p-3 pointer" (click)="toggleView(2)">
+              <div class="row justify-content-center pb-3">
+                <i class="far fa-copy"></i>
+              </div>
+              <div class="row justify-content-center">
+                <span class="text-center">Use Existing Template</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form [formGroup]="addCategoryForm" (ngSubmit)="onSubmit()" *ngIf="modalView == 1">
+    <div class="modal-header text-center">
+      <h5 class="modal-title">Create New Category</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+              (click)="updateCategories(); modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div id="category" class="category-container">
+        <div class="field-wrap row">
+          <label class="col-5 text-right">Category Name<span class="req"> *</span> </label>
+          <input class="col-6" type="text" formControlName="name" autocomplete="off" required/>
+        </div>
+        <div class="field-wrap row pt-3">
+          <label class="col-5 text-right">Learning Objective<span class="req"> *</span> </label>
+          <textarea rows="3" cols="50" class="col-6 description-box" formControlName="learning_objective"
+                    autocomplete="off" required></textarea>
+        </div>
+        <div class="field-wrap row pt-3">
+          <label class="col-3 text-right">Point Range</label>
+          <input class="col-2 h-100" type="number" min="0" max="100" formControlName="min_point" autocomplete="off"/>
+          <div class="col-1">to</div>
+          <input class="col-2 h-100" type="number" min="0" max="100" formControlName="max_point" autocomplete="off"/>
+          <div class="col-1">by</div>
+          <input class="col-2 h-100" type="number" min="0" max="100" formControlName="point_scale" autocomplete="off"/>
+        </div>
+      </div>
+    </div>
+    <div class="w-100 alert-response"></div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary" [disabled]="!addCategoryForm.valid"
+              (click)="setTutorialStatus(getTutorialStatus(),4)"> Add New Category
+      </button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss()">
+        Cancel
+      </button>
+    </div>
+  </form>
+  <div class="category-selector" *ngIf="modalView == 2">
+    <div class="modal-header text-center">
+      <h5 class="modal-title">Create New Category</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="container" *ngIf="categories && categories.length > 0">
+      <div class="row justify-content-center py-4">
+        <h4>Select a Category to Duplicate</h4>
+      </div>
+      <div class="row mx-4 mb-2 border-bottom">
+        <div class="col-6 font-weight-bold">Category Name</div>
+        <div class="col-6 font-weight-bold">Learning Objective</div>
+      </div>
+      <div class="category-wrapper">
+        <div class="row mx-4 pointer" (click)="selectCategory(category)" *ngFor="let category of categories">
+          <div class="category-not-selected-wrapper py-2 row w-100 m-0"
+               *ngIf="!selectedCategory || category.id != selectedCategory.id">
+            <div class="col-6">{{category.name}}</div>
+            <div class="col-6">{{category.learning_objective | slice:0:50}}</div>
+          </div>
+          <div class="category-selected-wrapper font-weight-bold py-2 row w-100 m-0"
+               *ngIf="selectedCategory && category.id == selectedCategory.id">
+            <div class="col-6">{{category.name}}</div>
+            <div class="col-6">{{category.learning_objective | slice:0:50}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!categories || categories.length == 0">
+      <h4 class="py-4 text-center">No categories found</h4>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="useTemplate()" *ngIf="selectedCategory">Next</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss()">
+        Cancel
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<div *ngIf="getTutorialStatus() == 2 && getTutorialSubStatus() == 3; else elseBlock" [popper]="p1"
+     [popperShowOnStart]="true"
+     [popperTrigger]="'none'"
+     [popperPlacement]="'top'"
+
+     [popperHideOnClickOutside]="false">
+  <popper-content #p1>
+    <p style="width: 150px"><b>Click here to Add a Category to your Rubric!</b> Select if you want to create a new
+      category or use an existing template.</p>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close"
+            (click)="setTutorialStatus(2,4)">Skip
+    </button>
+  </popper-content>
+  <button id="addCategory" class="btn btn-primary" (click)="p1.hide(); open(content)">
+    <i class="fas fa-plus"></i>Add Category
+  </button>
+</div>
+<ng-template #elseBlock>
+  <button id="addCategory" class="btn btn-primary" (click)="open(content)">
+    <i class="fas fa-plus"></i>Add Category
+  </button>
+</ng-template>

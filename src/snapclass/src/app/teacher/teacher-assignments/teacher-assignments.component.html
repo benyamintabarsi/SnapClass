@@ -1,0 +1,78 @@
+<div class="teacher-view">
+  <div class="row">
+    <div class="col-12">
+      <h1>Assignments</h1>
+      <hr class="m-0">
+      <h4>{{CourseSection.CourseName}} - {{CourseSection.SectionName}}</h4>
+    </div>
+  </div>
+  <div class="content mx-5 bg-white">
+    <div class="row w-100 pt-5 m-0 pb-3">
+        <!-- <div class="w-100 alert-response"></div> -->
+        <div class="col-6"></div>
+        <div class="assignment-button col-4" style="position: relative; left:11%">
+            <app-add-assignment [user]="user" [assignments]="assignments" (update)="updateAssignmentList(); setTutorialStatus(getTutorialStatus(), getTutorialSubStatus())"></app-add-assignment>
+        </div>
+        <form [formGroup]="sortByForm" class="col-md-2" style="position:relative; right:80%">
+            <select formControlName="status" id="sortBy">
+                <option value="1" selected>Active</option>
+                <option value="2">Inactive</option>
+                <option value="3">Archived</option>
+            </select>
+        </form>
+
+            <div class = "toggleSelector" style = " position: relative;left: 14%; bottom: 40px;">
+                <!-- This is the new thing -->
+                <form [formGroup]="activeSectionForm" class="col-md-2" style="position:relative">
+                    <select class="form-control" id="sortAssignments" formControlName="currentSection" (change)="updateSection($event.target.value)">
+                        <option hidden value="" disabled selected> Select A Course and Section </option>
+                        <option *ngFor="let CourseSection of this.allList" value="{{CourseSection.SectionId}}">{{CourseSection.CourseName}} - {{CourseSection.SectionName}}</option>
+                    </select>
+                </form>
+            </div>
+    </div>
+
+    <div class="assignments-wrapper w-100 pt-4 m-0" *ngIf="viewAssignments.length > 0">
+        <div class="row w-100 justify-content-right">
+        <table class="table w-100 justify-content-center" id="assignmentTable">
+            <thead>
+                <tr class="h4">
+                    <th scope="col">Name</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Due Date</th>
+                    <th scope="col">Submissions</th>
+                    <th scope="col">% Graded</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let assignment of viewAssignments; first as isFirst">
+                <tr>
+                    <td><a (click)="goToAssignment(assignment.id); setTutorialStatus(getTutorialStatus(), 8)">{{assignment.name}}</a>
+                        <div *ngIf="getTutorialStatus() == 2 && getTutorialSubStatus() == 7 && isFirst" [popper]="pman"
+                            [popperShowOnStart]="true"
+                            [popperTrigger]="'none'"
+                            [popperPlacement]="'left'"
+                            [popperHideOnClickOutside]="false">
+                            <popper-content #pman>
+                                <p style="width: 100px">You made your assignment! To view, grade, edit, or add a rubric, <b>click on the assignment name.</b></p>
+                            </popper-content>
+                        </div>
+                    </td>
+                    <td>{{assignmentStatus[assignment.status]}}</td>
+                    <td>{{assignment.due_date | date: 'shortDate'}}</td>
+                    <td width="20%">{{assignment.submission}} / {{studentsLength}} </td>
+                    <td>
+                        <div class="progress">
+                            <div class="progress-bar zero" *ngIf="assignment.percentgraded == 0" role="progressbar" aria-valuemin="0" aria-valuemax="100">{{assignment.percentgraded | number: '1.0-3'}}%</div>
+                            <div class="progress-bar" *ngIf="assignment.percentgraded != 0"  [ngStyle]="{width: assignment.percentgraded +'%'}" role="progressbar" aria-valuemin="0" aria-valuemax="100">{{assignment.percentgraded | number: '1.0-3'}}%</div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="assignments-wrapper w-100 bg-white pt-3" *ngIf="viewAssignments.length == 0">
+        <div class="h1 text-center">You have no {{assignmentStatus[status]}} assignments</div>
+    </div>
+    </div>
+</div>

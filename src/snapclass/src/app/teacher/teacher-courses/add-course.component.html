@@ -1,0 +1,61 @@
+<ng-template #content let-modal>
+        <form [formGroup]="addCourseSectionForm" (ngSubmit)="onSubmit()">
+            <div class="modal-header text-center">
+                <h5 class="modal-title">Create New Course</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="updateCourses(); modal.dismiss()">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                    <div id="course" class="course-container">
+                        <div class="field-wrap row">
+                            <label class="col-4 text-right"> Course Name<span class="req"> *</span> </label>
+                            <input class="col-6" type="text" formControlName="name" autocomplete="off"/>
+                        </div>
+                        <div class="field-wrap row">
+                            <label class="col-4 text-right"> Course Title </label>
+                            <input class="col-6" type="text" formControlName="description" autocomplete="off"/>
+                        </div>
+                        <div class="field-wrap row">
+                            <label class="col-4 text-right"> Section Number </label>
+                            <input class="col-6" type="text" formControlName="section_number" autocomplete="off"/>
+                        </div>
+                        <div class="field-wrap row">
+                            <label class="col-4 text-right"> Start Date </label>
+                            <input type="date" class="col-6" placeholder="YYYY-MM-DD" data-date-format="YYYY-MM-DD" formControlName="start_date" autocomplete="off">
+                        </div>
+                        <div class="field-wrap row">
+                            <label class="col-4 text-right"> End Date </label>
+                            <input type="date" class="col-6" placeholder="YYYY-MM-DD" data-date-format="YYYY-MM-DD" formControlName="end_date" autocomplete="off">
+                        </div>
+                        <div class="field-wrap row">
+                            <label class="col-4 text-right"> Status<span class="req"> *</span> </label>
+                            <select class="col-6" formControlName="status">
+                                <option selected="selected" value="1">Active</option>
+                                <option value="2">Inactive</option>
+                                <option value="3">Archived</option>
+                            </select>
+                        </div>
+                        </div>
+            </div>
+            <div class="w-100 alert-response"></div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" (click)="setTutorialStatus(getTutorialStatus(), getTutorialSubStatus() + 1)">Add New Course</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close" (click)="updateCourses(); modal.dismiss()">Cancel</button>
+            </div>
+        </form>
+</ng-template>
+
+<div *ngIf="getTutorialStatus() == 1 && getTutorialSubStatus() == 1; else elseBlock" [popper]="p1"
+    [popperShowOnStart]="true"
+    [popperTrigger]="'none'"
+    [popperPlacement]="'left'"
+
+    [popperHideOnClickOutside]="false">
+    <popper-content #p1>
+            <p><b>Click here to Add a Course!</b> Fill the information about your course and select <b>"Add New Course"</b> when finished.</p>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close" (click)="setTutorialStatus(1,2)">Skip </button>
+    </popper-content>
+    <button class="btn btn-primary course" (click)="p1.hide(); open(content)"> Add Course </button>
+</div>
+<ng-template #elseBlock><button class="btn btn-primary course" (click)="open(content)"> Add Course </button></ng-template>

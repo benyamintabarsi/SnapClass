@@ -1,0 +1,38 @@
+@-webkit-keyframes moveInFromTop {
+    from {top:0px;}
+    to {top: 500px;}
+}
+@keyframes moveInFromTop {
+    from {from {top:0px;}
+    to {top: 500px;}}
+}
+
+.section {
+    background-color: var(--teacher-primary-dark-color);
+    border-color: var(--teacher-primary-dark-color);
+    color: white;
+    align-content: center;
+}
+
+.section:hover {
+    background-color: var(--teacher-primary-dark-color);
+    border-color: var(--teacher-primary-dark-color);
+    color: var(--primary-student-dark-color);
+}
+
+#changeSelector {
+    cursor:pointer;
+}
+#changeModalBox {
+    animation-name: moveInFromTop;
+    animation-duration: 10s
+}
+
+.modal.show .modal-dialog {
+    animation-name: moveInFromTop;
+    animation-duration: 10s
+}
+div[aria-labelledby] {
+    animation-name: moveInFromTop;
+    animation-duration: 10s
+}
