@@ -1,6 +1,0 @@
-[submodule "snapclass/cellular"]
-	path = snapclass/cellular
-	url = https://github.com/nicklytle/snapapps.git
-[submodule "snapclass/Snap"]
-	path = snapclass/Snap
-	url = https://github.com/jmoenig/Snap.git

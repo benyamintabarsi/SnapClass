@@ -1,1 +1,0 @@
-To run back end tests, run "npm run testBackEnd"

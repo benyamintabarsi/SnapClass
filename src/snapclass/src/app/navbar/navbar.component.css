@@ -1,9 +1,0 @@
-.nav-item {
-  color: var(--secondary-text-color) !important;
-  text-decoration: none !important;
-}
-
-.nav-item:hover {
-  color: var(--primary-student-color) !important;
-  cursor: pointer;
-}
