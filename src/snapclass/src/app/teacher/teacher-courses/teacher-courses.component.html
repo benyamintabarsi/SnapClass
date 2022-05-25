@@ -1,0 +1,145 @@
+<div class="teacher-view">
+  <div class="row">
+    <div class="col-12">
+      <h1>{{courseStatus[status]}} Courses</h1>
+      <hr class="m-0">
+    </div>
+  </div>
+
+  <div class="content mx-5 bg-white pb-5">
+
+    <div class="row bar bg-white pt-5 w-100 m-0">
+      <div class="w-100 alert-response"></div>
+      <div class="col-6"></div>
+
+      <div class="col-2" style="position:relative; left: 22%;">
+        <add-course [user]="user" (update)="updateCourseList(); setTutorialStatus(getTutorialStatus(), getTutorialSubStatus())"></add-course>
+      </div>
+
+      <form [formGroup]="statusForm" class="col-3 text-right" style="position:relative; right:70%;">
+        <select id="sortBy" formControlName="status" (change)="setTutorialStatus(0, 0)">
+            <option hidden value="" disabled selected> Select A Category </option>
+            <option value="1">Active</option>
+            <option value="2">Inactive</option>
+            <option value="3">Archived</option>
+          </select>
+        </form>
+
+        <!-- tutorial content -->
+         <div *ngIf="getTutorialStatus() == 1 && getTutorialSubStatus() == 7" [popper]="p"
+        [popperShowOnStart]="true"
+        [popperTrigger]="'none'"
+        [popperPlacement]="'top'"
+
+        [popperHideOnClickOutside]="false">
+        <popper-content #p>
+            <p>Click here to view Inactive or Archived courses!</p>
+        </popper-content>
+    </div>
+    <!-- tutorial content end -->
+
+      </div>
+
+
+
+      <div class="courses-wrapper w-100 bg-white pt-4" *ngIf="viewCourses.length > 0">
+        <!-- <div class="w-100 alert-response"></div> -->
+
+        <!-- tutorial content -->
+        <div *ngIf="getTutorialStatus() == 1 && getTutorialSubStatus() == 2" [popper]="pman"
+        [popperShowOnStart]="true"
+        [popperTrigger]="'none'"
+        [popperPlacement]="'top'"
+        [popperHideOnClickOutside]="false">
+        <popper-content #pman>
+          <p>You made your course! To add students, <b>click on the course that you would like to add students to.</b></p>
+        </popper-content>
+        </div>
+        <!-- tutorial content end -->
+
+
+        <!-- added collapse animation -->
+
+
+        <div class="animated fadeInUp accordion-wrapper row w-100 justify-content-center" id="courseAccordion" *ngFor="let course of viewCourses; let i = index">
+          <button id='{{"button" + i}}' class="align-items-center accordion col-10 row w-120 border border-light rounded-0 p-3 collapsed" data-toggle="collapse" aria-expanded="false" [attr.data-target]="'#' + 'pogger' + i" (click)="setTutorialStatus(getTutorialStatus(), 3)">
+            <div class="d-inline-block text-left text-white col-4 p-0 h1 m-0">{{course.name}}</div>
+            <!--<div class="d-inline-block col-2"></div>-->
+            <div class="d-inline-block col-2 p-0 border-right border-white" *ngIf="status == courseStatus.Active">
+              <!-- <a routerLink="/student-accounts-options" href="javascript:void(0)" (click)="toggleSection($event)" class="text-white">Add Student accounts</a> -->
+          </div>
+            <div class="d-inline-block col-2 p-0 border-right border-white" *ngIf="status == courseStatus.Active">
+                <a href="javascript:void(0)" (click)="toggleSection($event)" class="text-white">Add Section</a>
+            </div>
+            <div class="d-inline-block col-2 p-0 border-right border-white" *ngIf="status == courseStatus.Active">
+              <a href="javascript:void(0)" (click)="changeStatus(course.id, courseStatus.Inactive, i)" class="text-white">Deactivate</a>
+            </div>
+            <div class="d-inline-block col-2 p-0" *ngIf="status == courseStatus.Active">
+              <a href="javascript:void(0)" (click)="changeStatus(course.id, courseStatus.Archived, i)" class="text-white">Archive</a>
+            </div>
+            <div class="d-inline-block col-2 p-0" *ngIf="status != courseStatus.Active"></div>
+            <div class="d-inline-block col-2 p-0" *ngIf="status != courseStatus.Active"></div>
+            <div class="d-inline-block col-2 p-0" *ngIf="status != courseStatus.Active"><a href="javascript:void(0)" (click)="changeStatus(course.id, courseStatus.Active, i)" class="text-white">Activate</a></div>
+          </button>
+
+          <!-- this part is the sections display for each course. the add accordion method will set the display of the below div to display: flex -->
+          <div id='{{"pogger" + i}}' class="collapse panel row w-100 justify-content-center" data-parent="#courseAccordion">
+            <div class="col-10 w-100 p-4 border border-light panel-content">
+              <div class="section-wrapper" *ngFor="let section of sections[course.id]; first as isFirst">
+                  <div class="row m-0">
+                      <div class="col-8 h4">Section {{section.section_number}}</div>
+
+                      <div class="col-sm d-inline-block p-0 rightAlign" *ngIf="status == courseStatus.Active"><a href="javascript:void(0)" (click)="changeSection(section)" class="font-weight-bold">View Assignments</a></div>
+                      <div class="col-sm d-inline-block p-0 rightAlign" *ngIf="status == courseStatus.Active && getTutorialStatus() == 1 && getTutorialSubStatus() == 3 && isFirst; else elseBlock"><a href="javascript:void(0)" (click)="setTutorialStatus(getTutorialStatus(), 4); pman2.hide(); navigate('/teacher/section/' + section.id + '/management')" class="font-weight-bold"
+                        [popper]="pman2"
+                        [popperShowOnStart]="true"
+                        [popperPlacement]="'top'"
+                        [popperTrigger]="'none'"
+                        [popperHideOnClickOutside]="false">
+                        Manage Section</a>
+                        <popper-content #pman2>
+                            <a class="text-left">Click <b>Manage Section</b> to edit section information or add students.</a>
+                        </popper-content>
+                      </div>
+                      <ng-template #elseBlock>
+
+                        <div class="col-sm d-inline-block p-0 rightAlign" *ngIf="status == courseStatus.Active"><a href="javascript:void(0)" (click)="navigate('/teacher/section/' + section.id + '/management')" class="font-weight-bold">Manage Section</a></div>
+                      </ng-template>
+
+
+                  </div>
+                
+                  <!-- <div>
+                    <input type="radio" id="bulk" name="bulkAction" value="bulk"
+                           checked>
+                    <label for="bulk">Create accounts for all students</label>
+                  </div>
+                  
+                  <div>
+                    <input type="radio" id="single" name="singleAction" value="single">
+                    <label for="single">Create accounts using student data</label>
+                  </div> -->
+
+                  <hr class="mt-0">
+              </div>
+
+              <form [formGroup]="sectionForm" (ngSubmit)="addSection(course.id)" *ngIf="status == courseStatus.Active && sectionToggle">
+                  <div class="row m-0">
+                      <div class="col-8 h4">Section: <input type="text" formControlName="section_number" placeholder="001" required></div>
+                      <div class="button-wrapper text-right col-4"><button [disabled]="!sectionForm.valid" type="submit" class="button button-block section-button">Add Section</button></div>
+                  </div>
+                </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="courses-wrapper w-100 bg-white pt-3" *ngIf="viewCourses.length == 0">
+        <div class="h1 text-center">You have no {{courseStatus[status]}} Courses</div>
+      </div>
+    </div>
+
+
+  </div>

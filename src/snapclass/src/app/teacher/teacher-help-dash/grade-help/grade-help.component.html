@@ -1,0 +1,29 @@
+<ng-template #content let-modal>
+    <div class="select-assignment mt-4">
+      <div class="model-header text-center">
+        <h5 class="modal-title">Course Management Help</h5>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row mx-4 mb-2 border-bottom">
+              <div class="col-12 font-weight-bold">How can we help?</div>
+          </div>
+          <div class="assignments-wrapper pre-scrollable">
+              <div class="row mx-4 pointer" (click)="modal.dismiss()">
+                <div class="assignment-not-selected-wrapper py-2 row w-100 m-0">
+                    <a><div class="col-12">This tutorial has not yet been implemented.</div></a>
+                   <!-- <a><div class="col-12">Full Grade Management Tutorial</div></a>
+                    <a><div class="col-12">Full Grade Management Tutorial</div></a>
+                    <a><div class="col-12">Full Grade Management Tutorial</div></a>-->
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss()">Cancel</button>
+      </div>
+      </div>
+  </ng-template>
+  
+  <button class="btn btn-lg btn-primary" (click)="open(content)"> Grade Management </button>

@@ -1,0 +1,119 @@
+<div class="row vh-100" *ngIf="assignment">
+  <div id="snapframe" class="col p-0">
+    <button class="snap-fullscreen-toggle" (click)="toggleFullscreen()">Fullscreen</button>
+    <iframe class="w-100 h-100 border-0" id="snap-canvas" [src]="
+    '/' + (assignment.environment | lowercase) + '.html'
+      | safe: 'resourceUrl'">
+    </iframe>
+  </div>
+  <div id="rubricgrading" class="col-xl-2 col-lg-3 col-md-4 col-sm-6 text-white">
+    <div class="row my-3">
+      <h5 class="col" *ngIf="rubric">{{rubric.name}}</h5>
+    </div>
+    <div class="col">
+      <h6 class="col" *ngIf="submission.is_submitted === 0">**Not Submitted Yet**</h6>
+      <h6 class="col" *ngIf="submission.is_submitted === 1">**Has Been Submitted**</h6>
+    </div>
+    <div class="row my-3">
+      <div class="col">
+        <div *ngIf="rubricCategories && rubricCategories.length > 0">
+          <div class="accordion" id="categoriesAccordian" *ngFor="let category of rubricCategories; let i = index">
+            <div class="card">
+              <div class="card-header px-2 py-2" id="{{'categoryHeading' + i}}" data-toggle="collapse"
+                   [attr.data-target]="'#' + 'collapse' + i">
+                <div class="row">
+                  <div class="col pr-0">{{category.name}}</div>
+                  <div class="col-3 text-right pl-0">
+                    <span class="badge badge-light">{{earnedPointsForCategory(category.id)}}
+                      / {{category.max_point}}</span>
+                  </div>
+                </div>
+              </div>
+              <div id="{{'collapse' + i}}" class="collapse" data-parent="#categoriesAccordian">
+                <div *ngFor="let points of category.points" (click)="managePointList(points)">
+                  <div class="card-body px-2 py-0 border text-primary bg-light" *ngIf="points.selected">
+                    <div class="row">
+                      <div class="col pr-0"><small>{{points.description}}</small></div>
+                      <div class="col-3 text-right pl-0">
+                        <span class="badge badge-primary">{{points.points}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body px-2 py-0 border text-black-50" *ngIf="!points.selected">
+                    <div class="row">
+                      <div class="col pr-0"><small>{{points.description}}</small></div>
+                      <div class="col-3 text-right pl-0">
+                        <span class="badge">{{points.points}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="grading-summary" class="row my-3">
+      <div class="col">
+        <div class="form-group row my-0">
+          <label class="col col-form-label col-form-label-sm">Score Adjustment</label>
+          <div class="col-4">
+            <input class="form-control form-control-sm text-right" type="number">
+          </div>
+        </div>
+        <div class="form-group row my-0">
+          <label class="col col-form-label col-form-label-sm">Final Score</label>
+          <div class="col-4">
+            <input type="text" class="form-control-plaintext form-control-sm text-right"
+                   value="{{earnedPoints()}}/{{possiblePoints()}}" readonly>
+          </div>
+        </div>
+        <div class="form-group row my-0">
+          <label class="col col-form-label col-form-label-sm">Percentage</label>
+          <div class="col-4">
+            <input type="text" class="form-control-plaintext form-control-sm text-right"
+                   value="{{assignmentFeedbackForm.getRawValue().grade_total}}%" readonly>
+          </div>
+        </div>
+        <div class="form-group row my-0">
+          <label class="col col-form-label col-form-label-sm">Feedback</label>
+          <div class="col-12">
+            <textarea id="feedback-textarea" rows="4" autocomplete="off" class="form-control form-control-sm"
+                      [(ngModel)]="grade.assignment_feedback"></textarea>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col">
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped bg-warning" role="progressbar"
+                   [style.width.%]="currentStudentIndexAsPercentage()" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2 row align-items-center">
+          <div class="col-3 text-right">
+            <button class="btn" (click)="submitCurrentStudent(-1);" [hidden]="!(currentStudentIndex > 0)">
+              <i class="fas fa-caret-left"></i>
+            </button>
+          </div>
+          <div class="col-6 text-center px-0">
+            {{currentStudentIndex + 1}} out of {{students.length}}!
+          </div>
+          <div class="col-3 text-left">
+            <button class="btn" (click)="submitCurrentStudent(+1);"
+                    [hidden]="!(currentStudentIndex < students.length - 1)">
+              <i class="fas fa-caret-right"></i>
+            </button>
+          </div>
+        </div>
+        <div class="row py-2 justify-content-center">
+          {{students[currentStudentIndex].username}}
+        </div>
+        <div class="row py-2 justify-content-center">
+          <button id="saveButton" class="col-6 button" (click)="submitCurrentStudent(0)">Save Grade</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

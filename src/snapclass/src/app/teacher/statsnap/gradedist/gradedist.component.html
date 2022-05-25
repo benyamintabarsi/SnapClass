@@ -1,0 +1,93 @@
+<!-- Main header for the Grade Distribution Page -->
+
+<div class="row w-100 m-0">
+  <div class="header-wrapper py-4 w-100"> 
+    <div class="row justify-content-center m-0">
+        <div class="col-6">
+            <h1> Class Grade Distribution</h1>
+            <hr>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- Creating the graph from the .ts file and setting the graphics-->
+
+<div class = "graph" id="chartContainer" style="position: relative; left: 10%; border: 50px solid #0063A1; height: 700px; width: 80%;">{{graphCreation()}}</div>
+
+<!-- Creating the space between graph and stats -->
+
+<div><br></div>
+<div><br></div>
+
+<!-- Printing out all of the stats for the grades -->
+
+<div class = "boxed" style = "position: relative; left: 10%">
+  <div><br></div>
+	Average Class Assignment Grade: {{getClassAverage()}} 
+	<br> Number of Students with an A: {{getGradeDistribution()[4]}}
+	<br> Number of Students with an B: {{getGradeDistribution()[3]}}
+	<br> Number of Students with an C: {{getGradeDistribution()[2]}}
+	<br> Number of Students with an D: {{getGradeDistribution()[1]}}
+	<br> Number of Students with an F: {{getGradeDistribution()[0]}}
+  <div><br></div>
+</div>
+
+<!-- Creating the space between graph and stats -->
+
+<div><br></div>
+<div><br></div>
+<div><br></div>
+<div><br></div>
+<div><br></div>
+
+<div class="row w-100 m-0">
+  <div class="header-wrapper py-4 w-100"> 
+    <div class="row justify-content-center m-0">
+        <div class="col-6">
+            <h1> Grade Range Preferences </h1>
+            <hr>
+        </div>
+    </div>
+  </div>
+</div>
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{padding:10px 5px;border-style:solid;border-width:8px;overflow:hidden;word-break:normal;border-color:#ffcc00; font-size: 20px;}
+.tg th{;font-weight:normal; font-size: 20px; padding:10px 5px;border-style:solid;border-width:8px;overflow:hidden;word-break:normal;border-color:#ffcc00;}
+.tg .tg-baqh{text-align:center;vertical-align:center}
+</style>
+
+
+<div align = "center" width = "35%">
+  <table class="tg">
+    <tr>
+      <td class="tg-baqh">Increase or Decrease Minimum Grade</td>
+      <td class="tg-baqh">Letter Grade</td>
+    </tr>
+    <tr>
+      <td class="tg-baqh noselect"><a class = "button skill" (click) = "increaseGradeRange(3)"> &#9650;  Increase  &#9650;</a> &nbsp; &nbsp; &nbsp; <a class = "button skill" (click) = "decreaseGradeRange(3)">&#9660;  Decrease  &#9660;</a></td>
+      <td class="tg-baqh">{{gradeRange[3]}}</td>
+    </tr>
+    <tr>
+      <td class="tg-baqh noselect"><a class = "button skill" (click) = "increaseGradeRange(2)">&#9650;  Increase  &#9650;</a> &nbsp; &nbsp; &nbsp; <a class = "button skill" (click) = "decreaseGradeRange(2)">&#9660;  Decrease  &#9660;</a></td>
+      <td class="tg-baqh">{{gradeRange[2]}}</td>
+    </tr>
+    <tr>
+      <td class="tg-baqh noselect"><a class = "button skill" (click) = "increaseGradeRange(1)">&#9650;  Increase  &#9650;</a> &nbsp; &nbsp; &nbsp; <a class = "button skill" (click) = "decreaseGradeRange(1)">&#9660;  Decrease  &#9660;</a></td>
+      <td class="tg-baqh">{{gradeRange[1]}}</td>
+    </tr>
+    <tr>
+      <td class="tg-baqh noselect"><a class = "button skill" (click) = "increaseGradeRange(0)">&#9650;  Increase  &#9650;</a> &nbsp; &nbsp; &nbsp; <a class = "button skill" (click) = "decreaseGradeRange(0)">&#9660;  Decrease  &#9660;</a></td>
+      <td class="tg-baqh">{{gradeRange[0]}}</td>
+    </tr>
+  </table>
+
+  <div><br></div>
+
+  <div class = "button skill tg reset noselect" (click) = "resetGradeRange()"> Reset Grade Range to Standard 10 Point Scale</div>
+
+</div>
+
+

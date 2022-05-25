@@ -1,0 +1,28 @@
+<div class="row w-100 m-0">
+  <div class="header-wrapper py-4 w-100"> 
+    <div class="row justify-content-center m-0">
+        <div class="col-6">
+            <h1> Variable Skill Usage</h1>
+            <hr>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class = "graph" id="chartContainer" style="position: relative; left: 10%; border: 50px solid #0063A1; height: 700px; width: 80%;">{{graphCreation()}}</div>
+
+<div><br></div>
+<div><br></div>
+
+
+<div class = "boxed" style = "position: relative; left: 10%">
+  <div><br></div>
+	Average Number of Variables per Program: {{overallAverage()}} 
+    <br>
+    <br> Based on this data, it looks like your students are {{defineUsageLevel()}}
+  <div><br></div>
+</div>
+
+
+
+
