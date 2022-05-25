@@ -1,0 +1,349 @@
+/** Add bootstrap and fontawesome to project */
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "~font-awesome/css/font-awesome.css";
+
+@font-face {
+  font-family: 'Poppins-Regular';
+  src: url('./app/fonts/poppins/Poppins-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-Medium';
+  src: url('./app/fonts/poppins/Poppins-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-Bold';
+  src: url('./app/fonts/poppins/Poppins-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-SemiBold';
+  src: url('./app/fonts/poppins/Poppins-SemiBold.ttf');
+}
+
+* {
+    //font-family: 'Poppins-Regular';
+}
+
+/* You can add global styles to this file, and also import other style files */
+:root {
+    /** COLORS */
+    --background-color: #f6f6f7;
+    --teacher-primary-color: #0c7cba;
+    --teacher-primary-dark-color:#0063A1;
+    --primary-student-color: #ffcc00;
+    --primary-student-dark-color: #E6B300;
+    --highlight-selection-color: #00a4ff42;
+    --primary-text-color: #3d3e3e;
+    --primary-grey: #515252;
+    --primary-light-grey: #f9f9f9;
+    --secondary-text-color: #fff;
+    --error-color: #ff9494;
+    --warning-color: #ffcc00;
+    --primary-red: #c92d39;
+    --primary-green: #4BB543;
+
+    /** FONTS */
+    --primary-text: 'Roboto';
+}
+
+html, body, .main-wrapper {
+    background-color: var(--background-color);
+    color: var(--primary-text-color);
+}
+
+#sidenav {
+  background-color: var(--teacher-primary-dark-color);
+}
+
+/** INPUTS */
+
+/** BUTTON */
+.teacher-view button, .teacher-login-button {
+    background: var(--teacher-primary-color);
+    color: var(--secondary-text-color);
+    border: 0;
+}
+
+.student-view button, .student-login-button {
+    background: var(--primary-student-color);
+    color: var(--secondary-text-color);
+    border: 0;
+}
+
+.teacher-view .btn-primary {
+    background-color: var(--primary-student-color);
+    border-color: var(--primary-student-color);
+    color: var(--secondary-text-color) !important;
+}
+
+.teacher-view .btn-primary:hover {
+    text-align: center;
+    color: var(--secondary-text-color) !important;
+    text-decoration: none !important;
+    background-color: var(--primary-student-dark-color) !important;
+    border-color: var(--primary-student-dark-color) !important;
+}
+
+button:focus {
+    outline: 0;
+}
+
+/** DATA INPUTS */
+input[type=date] {
+  border-width: 0px;
+}
+
+/** FONTS */
+h1 {
+    color: var(--primary-text-color);
+}
+
+/** ALERTS */
+.alert > p {
+    margin-bottom: 0;
+}
+
+.alert {
+    margin: 0 5rem 2rem !important;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.req {
+    color: red;
+}
+
+/** HEADER */
+//.topBar {
+//    height: 75px;
+//    background-color: white;
+//    border-bottom: 1px solid #d7d9da;
+//}
+
+/** FOOTER */
+//.bottomBar {
+//    height: 90px;
+//    background-color: var(--background-color);
+//}
+
+.logo {
+    max-width: 250px;
+    cursor: pointer;
+}
+
+//.logo-container {
+//
+//    height: 100%;
+//}
+
+/*!
+ * animate.css -http://daneden.me/animate
+ * Version - 3.7.0
+ * Licensed under the MIT license - http://opensource.org/licenses/MIT
+ *
+ * Copyright (c) 2018 Daniel Eden
+ */
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  &.infinite {
+    animation-iteration-count: infinite;
+  }
+  &.delay-1s {
+    animation-delay: 1s;
+  }
+  &.delay-2s {
+    animation-delay: 2s;
+  }
+  &.delay-3s {
+    animation-delay: 3s;
+  }
+  &.delay-4s {
+    animation-delay: 4s;
+  }
+  &.delay-5s {
+    animation-delay: 5s;
+  }
+  &.fast {
+    animation-duration: 800ms;
+  }
+  &.faster {
+    animation-duration: 500ms;
+  }
+  &.slow {
+    animation-duration: 2s;
+  }
+  &.slower {
+    animation-duration: 3s;
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .animated {
+    animation: unset !important;
+    transition: none !important;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fadeInDown {
+  animation-name: fadeInDown;
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fadeInLeft {
+  animation-name: fadeInLeft;
+}
+
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fadeInRight {
+  animation-name: fadeInRight;
+}
+
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fadeInUp {
+  animation-name: fadeInUp;
+}
+
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.fadeOut {
+  animation-name: fadeOut;
+}
+
+
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+}
+
+.fadeOutDown {
+  animation-name: fadeOutDown;
+}
+
+
+@keyframes fadeOutLeft {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+.fadeOutLeft {
+  animation-name: fadeOutLeft;
+}
+
+
+@keyframes fadeOutRight {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+.fadeOutRight {
+  animation-name: fadeOutRight;
+}
+
+
+@keyframes fadeOutUp {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+}
+
+.fadeOutUp {
+  animation-name: fadeOutUp;
+}

@@ -1,0 +1,97 @@
+<div class="teacher-view">
+  <div class="row">
+    <div class="w-100 form-col">
+      <div class="form">
+        <div class="tab-content mt-5"> 
+          <div class="alert-response"></div>
+          <form [formGroup]="teacherForm" (ngSubmit)="onSubmit()" *ngIf="pswd === 0">
+            <div id="account" class="container">
+              <h1>Edit Account</h1>
+              <hr/>
+              <div class="account-row row justify-content-center text-white">
+                <div class="form-wrap col-6">
+                  <div class="field-wrap row">
+                    <label class="col-6">
+                      Username<span class="req"></span>
+                    </label>
+                    <label class="col-6">
+                      {{user.username}}
+                    </label>
+                  </div>
+                  <div class="field-wrap row">
+                    <label class="col-6">
+                      Name<span class="req"> *</span>
+                    </label>
+                    <input class="col-6" type="text" formControlName="name" required autocomplete="off" value="{{user.name}}" />
+                  </div>
+
+                  <div class="field-wrap row">
+                    <label class="col-6">
+                      Teacher Name
+                    </label>
+                    <input class="col-6" type="text" formControlName="preferred_name" autocomplete="off" value="{{user.preferred_name}}"/>
+                  </div>
+
+                  <div class="button-wrap row justify-content-center">
+                    <button type="submit" class="button button-block">Save Account</button>
+                  </div>
+                </div>
+              </div>
+              <hr/>
+              <div class="pswd-row row justify-content-center">
+                <div class="form-wrap col-6">
+                  <div class="toggle-button-wrap row justify-content-center">
+                    <button class="tab" (click)="pswd = 1">Change Password</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <form [formGroup]="teacherPasswordForm" (ngSubmit)="onPasswordSubmit()">
+            <div ng-show="pswd" id="pswd" class="container" *ngIf="pswd === 1">
+              <h1>Password Change Form</h1>
+              <hr/>
+              <div class="pswd-row row justify-content-center text-white">
+                <div class="form-wrap col-6">
+                  <div class="field-wrap row">
+                    <label class="col-6">
+                      Current Password<span class="req"> *</span>
+                    </label>
+                    <input class="col-6" type="password" formControlName="oldPassword" required autocomplete="off"/>
+                  </div>
+
+                  <div class="field-wrap row">
+                    <label class="col-6">
+                      New Password<span class="req"> *</span>
+                    </label>
+                    <input class="col-6" type="password" formControlName="newPassword" required autocomplete="off"/>
+                  </div>
+
+                  <div class="field-wrap row">
+                    <label class="col-6">
+                      Confirm New Password<span class="req"> *</span>
+                    </label>
+                    <input class="col-6" type="password" formControlName="newPasswordConfirm" required autocomplete="off"/>
+                  </div>
+                  <div class="button-wrap row justify-content-center">
+                    <button class="button button-block" [disabled]="!teacherPasswordForm.valid">Save Password</button>
+                  </div>
+                </div>
+              </div>
+              <hr/>
+              <div class="account-row row justify-content-center">
+                <div class="form-wrap col-6">
+                  <div class="toggle-button-wrap row justify-content-center">
+                    <button class="tab" (click)="pswd = 0">Edit Account</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div><!-- tab-content -->
+      </div><!-- /form -->
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

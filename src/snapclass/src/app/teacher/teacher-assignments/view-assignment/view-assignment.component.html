@@ -1,0 +1,105 @@
+<div class="teacher-view" *ngIf="assignment">
+    <div class="row w-100 m-0">
+          <div class="header-wrapper py-4 w-100"> 
+            <div class="row justify-content-center m-0">
+                <div class="col-6">
+                    <h1> {{assignment.name}} </h1>
+                    <hr>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-6 text-center"><h6>Start Date: {{assignment.start_date | date: 'longDate'}}</h6></div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-6 text-center"><h6>Due Date: {{assignment.due_date | date: 'longDate'}}</h6></div>  
+            </div> 
+        </div>
+    </div>
+    <div class="content mx-5 bg-white">
+        <div class="row content-wrapper h-100 pb-5 m-0">
+            <div class="w-100 h-100">
+                <div class="w-100 alert-response"></div>
+                <div class="row justify-content-end pt-5 pb-4 m-0 pr-5">
+                    <div class="col-3 text-right">
+                          <!--  <div *ngIf="getTutorialStatus() == 2 && getTutorialSubStatus() == 9" [popper]="p1"
+                            [popperShowOnStart]="true"
+                            [popperTrigger]="'none'"
+                            [popperPlacement]="'left'"
+                        
+                            [popperHideOnClickOutside]="false">
+                            <popper-content #p1>
+                                    <p>To grade this assignment, select <b>Grade Assignment</b></p>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close" (click)="setTutorialStatus(2,10)">Skip </button>
+                            </popper-content>
+                          </div> -->
+                          <div *ngIf="getTutorialStatus() == 2 && getTutorialSubStatus() == 9" [popper]="p2"
+                            [popperShowOnStart]="true"
+                            [popperTrigger]="'none'"
+                            [popperPlacement]="'left'"
+                        
+                            [popperHideOnClickOutside]="false">
+                            <popper-content #p2>
+                                    <p>Congrats, you have finished setting up your class and first assignment! Click here to start grading the assignment.</p>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close" (click)="setTutorialStatus(0,0)">Skip (Exit tutorial)</button>
+                            </popper-content>
+                          </div>
+                        <a class="btn btn-primary assignment float-right" (click)="setTutorialStatus(getTutorialStatus(), 10); gradeAssignment()">Grade Assignment </a>
+                    </div>
+                    <div class="col-3 text-right">
+                        <app-add-rubric-to-assignment [assignmentID]="assignment.id" (update)="getAssignment()"></app-add-rubric-to-assignment>
+                    </div>
+                    <div class="col-3 text-right">
+                        <a class="btn btn-primary assignment float-right" (click)="editAssignment()">Edit Assignment </a>
+                    </div>
+                </div>
+                <div class="row w-100 pb-4 justify-content-center">
+                    <div class="col-3 text-right d-flex align-items-center">
+                        <h3 class="w-100">Description:</h3>
+                    </div>
+                    <div class="card col-8">
+                        <div class="card-body">
+                            {{assignment.description}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row w-100 pb-4 justify-content-center" *ngIf="rubric">
+                    <div class="col-3 text-right d-flex align-items-center">
+                        <h3 class="w-100">Rubric:</h3>
+                    </div>
+                    <div class="card col-8">
+                        <div class="card-body">
+                            <b>{{rubric.name}}</b> | {{rubric.description}}
+                        </div>
+                    </div>
+                </div>
+                <div class="grades-wrapper w-100 pt-4 m-0" *ngIf="gradebook && gradebook.length > 0 && rubricCategories"> 
+                    <div class="row w-100 justify-content-right m-0 px-5">
+                        <table class="table w-100 justify-content-center text-center" id="gradeTable">
+                            <thead>
+                                <tr class="h4">
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Submitted</th>
+                                    <th scope="col">Graded</th> 
+                                    <th scope="col">Score</th>
+                                    <th scope="col" *ngFor="let category of rubricCategories">{{category.name}}</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let student of gradebook">
+                                <tr>
+                                    <td>{{student.name}}</td>
+                                    <td *ngIf="student.is_submitted" class="green"><i class="fas fa-check"></i></td>
+                                    <td *ngIf="!student.is_submitted" class="red"><i class="fas fa-times"></i></td>
+                                    <td *ngIf="student.grade_total" class="green"><i class="fas fa-check"></i></td>
+                                    <td *ngIf="!student.grade_total" class="red"><i class="fas fa-times"></i></td>
+                                    <td *ngIf="student.grade_total">{{student.grade_total}}%</td>
+                                    <td *ngIf="!student.grade_total">N/A</td>
+                                    <th scope="col" *ngFor="let category of rubricCategories">{{getPoint(student, category)}}</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

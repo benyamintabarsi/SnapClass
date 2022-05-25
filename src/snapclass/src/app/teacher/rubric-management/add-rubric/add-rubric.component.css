@@ -1,0 +1,66 @@
+.modal {
+    position: absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    width:100%;
+    height:100%;
+    z-index:998;
+    opacity: .5;
+}
+
+.backdrop { 
+    background-color:rgba(0,0,0,0.6);
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100vh;
+}
+
+.modal-title {
+    text-align: center;
+}
+
+.modal-body {
+    height: 300px;
+}
+
+.fa-file, .fa-copy {
+    font-size: 5rem;
+}
+
+.content-border {
+    border: 4px solid #dee2e6 !important;
+}
+
+a:not([href]) {
+    text-align: center;
+    color: var(--secondary-text-color);
+    text-decoration: none !important;
+    display: block;
+    transition: 0.3s;
+    padding: 8px 32px 8px 32px;
+}
+
+.btn-primary.course {
+    margin-left: 33%;
+    border-radius: 200px;
+    background-color: var(--primary-student-dark-color);
+    border-color: var(--primary-student-dark-color);
+}
+
+.description-box {
+    height: 200px;
+}
+
+.rubric-wrapper {
+    height: 150px;
+    max-height: 150px;
+    overflow: scroll;
+}
+
+.rubric-selected-wrapper{
+    background-color: var(--background-color);
+}

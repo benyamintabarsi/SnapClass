@@ -1,0 +1,68 @@
+<ng-template #content let-modal>
+  <form [formGroup]="addAssignmentForm" (ngSubmit)="onSubmit()">
+      <div class="modal-header text-center">
+          <h5 class="modal-title">Create New Assignment</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="updateAssignments(); modal.dismiss()">
+          <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body" >
+          <div id="assignment" class="assignment-container">
+              <div class="field-wrap row">
+                  <label class="col-4 text-right" style="font-size: 15px;"> Name<span class="req"> *</span> </label>
+                  <input class="col-6" type="text" formControlName="name" autocomplete="off"/>
+              </div>
+              <br style="display: block; content: ''; margin-top: 5px;">
+              <div class="field-wrap row">
+                  <label class="col-4 text-right" style="font-size: 15px;"> Description<span class="req"> *</span> </label>
+                  <textarea class="col-6" formControlName = "description" autocomplete="off" cols="5" rows="3"></textarea>
+              </div>
+              <br style="display: block; content: ''; margin-top: 5px;">
+              <div class="field-wrap row">
+                <label class="col-4 text-right" style="font-size: 15px;" > Environment<span class="req"> *</span> </label>
+                <select class="col-6" formControlName="environment">
+                    <option value="Snap">Snap</option>
+                    <option value="cellular">Cellular</option>
+                </select>
+              </div>
+              <br style="display: block; content: ''; margin-top: 5px;">
+              <div class="field-wrap row">
+                  <label class="col-4 text-right" style="font-size: 15px;"> Start Date <span class="req"> *</span> </label>
+                  <input class="col-6" type="date" formControlName="start_date" autocomplete="off">
+              </div>
+              <div class="field-wrap row">
+                  <label class="col-4 text-right" style="font-size: 15px;"> Due Date <span class="req"> *</span> </label>
+                  <input class="col-6" type="date" formControlName="due_date" autocomplete="off">
+              </div>
+              <br style="display: block; content: ''; margin-top: 5px;">
+              <div class="field-wrap row">
+                <label class="col-4 text-right" style="font-size: 15px;"> Status<span class="req"> *</span> </label>
+                <select class="col-6" formControlName="status">
+                    <option selected="selected" value="1">Active</option>
+                    <option value="2">Inactive</option>
+                    <option value="3">Archived</option>
+                </select>
+            </div>
+          </div>
+      </div>
+      <div class="w-100 alert-response"></div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss()">Back</button>
+          <button type="submit" class="btn btn-primary" (click)="setTutorialStatus(getTutorialStatus(), 7)">Add Starter Code</button>
+      </div>
+  </form>
+</ng-template>
+
+<div *ngIf="getTutorialStatus() == 2 && getTutorialSubStatus() == 6; else elseBlock" [popper]="p1"
+  [popperShowOnStart]="true"
+  [popperTrigger]="'none'"
+  [popperPlacement]="'left'"
+
+  [popperHideOnClickOutside]="false">
+  <popper-content #p1>
+          <p><b>Click here to Add an Assignment!</b> Fill the information about your assignment and select <b>"Save"</b> when finished.</p>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close" (click)="setTutorialStatus(2,7)">Skip</button>
+  </popper-content>
+  <a class="btn btn-primary assignment float-right" (click)="p1.hide(); open(content)"><i class="fas fa-plus"></i> Assignment </a>
+</div>
+<ng-template #elseBlock><a class="btn btn-primary assignment float-right" (click)="open(content)"><i class="fas fa-plus"></i> Assignment </a></ng-template>

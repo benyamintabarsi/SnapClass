@@ -1,0 +1,41 @@
+
+/* class allows for standardized button creation*/
+/* called in HTML file to create an aesthetic, rounded, teacher-blue button*/
+.button {
+color: #fff !important;
+text-transform: uppercase;
+background: #0063A1;
+padding: 10px;
+border-radius: 10px;
+display: inline-block;
+border: none;
+}
+
+/* class allows for the creation of a block button for stand-alone/top buttons*/
+.block {
+  display: block;
+  width: 80%;
+}
+
+/* class controls the switch in button color when cursor is hovering over */
+.button:hover {
+  background: #434343;
+}
+
+/* class to create the skill buttons which are contained within the main table */
+.skill {
+	display: block;
+	width: 100%;
+}
+
+/* class to create a large version of the skill indicator icons for the skills table */
+.large_icon {
+	font-size: 30px;
+}
+
+/* properly sizes the skills scale text/icons */
+.scale {
+	font-size: 20px;
+}
+
+

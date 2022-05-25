@@ -1,0 +1,31 @@
+<div class="row vh-100">
+  <div id="snapframe" class="col p-0">
+    <button class="snap-fullscreen-toggle" (click)="toggleFullscreen()">Fullscreen</button>
+    <iframe class="w-100 h-100 border-0" id="snap-canvas" [src]="
+    '/' + (assignment.environment | lowercase) + '.html'
+      | safe: 'resourceUrl'">
+    </iframe>
+  </div>
+  <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 text-white">
+    <div class="col">
+      <div class="row pt-5 pb-3 h4 justify-content-center" style="font: arial; color: black;">
+        {{ assignment.name }}
+      </div>
+      <div class="row h6 pb-3 px-2" style="font: arial; color: black; font-size: 14px;">
+        {{ assignment.description }}
+      </div>
+      <div class="row h6 pb-3 px-2" style="font: arial; color: black; font-size: 14px;">
+        Environment: {{ assignment.environment }}
+      </div>
+      <div class="row h6 pb-3 text-center px-2" style="font: arial; color: black; font-size: 14px;">
+        Due: {{ assignment.due_date | date: "medium" }}
+      </div>
+    </div>
+    <div>
+      <div class="text-center">
+        <a id = "rubricgrading" class="btn" type="button" style="height: 60px; padding: auto;" (click)="saveStarterCode()" >Save Starter Code <br/> to Assignment</a>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,50 @@
+<div class="teacher-view" *ngIf="section">
+  <div class="row">
+    <div class="col-12">
+      <h1>Gradebook</h1>
+      <hr class="m-0">
+      <h4>{{CourseSection.CourseName}} - {{CourseSection.SectionName}}</h4>
+    </div>
+  </div>
+  <div class="content mx-5 bg-white">
+      <div class="row content-wrapper h-100 pb-5 m-0">
+          <div class="w-100 h-100">
+              <div class="w-100 pt-4 alert-response"></div>
+
+              <!-- This is the new thing -->
+              <form [formGroup]="activeSectionForm" class="col-md-2" style="position:relative">
+                  <select class="form-control" id="sortGradeBook" formControlName="currentSection" (change)="updateSection($event.target.value)">
+                      <option hidden value="" disabled selected> Select A Course and Section </option>
+                      <option *ngFor="let CourseSection of this.allList" value="{{CourseSection.SectionId}}">{{CourseSection.CourseName}} - {{CourseSection.SectionName}}</option>
+                  </select>
+              </form>
+
+
+              <div class="row w-100 pb-5 justify-content-center" *ngIf="gradebook.length == 0">
+                <div class="h1 text-center">You have no students/assignments in {{CourseSection.CourseName}} - {{CourseSection.SectionName}}</div>
+                <hr class="m-0 border w-100"/>
+              </div>
+
+              <div class="grades-wrapper w-100 pt-4 m-0" *ngIf="gradebook && assignments && gradebook.length > 0">
+                  <div class="row w-100 justify-content-right m-0 px-5">
+                      <table class="table w-100 justify-content-center text-center" id="gradeTable">
+                          <thead>
+                              <tr class="h4">
+                                  <th scope="col">Student Name</th>
+                                  <th scope="col" *ngFor="let assignment of assignments">{{assignment.name}}</th>
+                              </tr>
+                          </thead>
+                          <tbody *ngFor="let student of gradebook">
+                              <tr>
+                                  <td>{{student.name}}</td>
+                                  <td scope="col" *ngFor="let assignment of assignments">{{getGrade(student, assignment)}}</td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+
+          </div>
+      </div>
+  </div>
+</div>

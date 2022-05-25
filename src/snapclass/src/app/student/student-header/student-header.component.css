@@ -1,0 +1,23 @@
+#nav-opener {
+    cursor: pointer;
+}
+.fa {
+    font-size: 48px;
+    color: var(--primary-student-color);
+    padding: 1rem;
+}
+
+.wrapper-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.student-view {
+    height: inherit;
+}
+
+.account {
+    color: var(--primary-student-color);
+}
