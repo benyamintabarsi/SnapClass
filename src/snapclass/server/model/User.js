@@ -43,6 +43,7 @@ exports.addUser = function (data, callback) {
         );
       } else {
         roleModel.addUserRole(data.role, response.insertId, function () {});
+        // roleModel.addHelperRole(data.role, response.insertId, function () {});
         callback(
           formatter.getEmptyValidResponse("Account successfully created!")
         );

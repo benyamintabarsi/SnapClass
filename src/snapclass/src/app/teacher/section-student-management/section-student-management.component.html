@@ -165,6 +165,7 @@
                             <th class="text-white h2 text-center">Name</th>
                             <th class="text-white h2 text-center">Preferred Name</th>
                             <th class="text-white h2 text-center">Email</th>
+                            <th class="text-white h2 text-center">Helper</th>
                             <th class="text-white h2 text-center">Action</th>
                           </tr>
                           <tr *ngFor="let student of students">
@@ -172,6 +173,12 @@
                               <td class="h4 text-center">{{ student.name }}</td>
                               <td class="h4 text-center">{{ student.preferred_name }}</td>
                               <td class="h4 text-center">{{ student.email }}</td>
+                              <td class="h4 text-center"><label for="helper-type"></label>
+                                <select name="helper-type" id="helper-type">
+                                  <option value="hand">Hand</option>
+                                  <option value="hand">Fist</option>
+                                  <option value="hand">Expert</option>
+                                </select></td>
                               <td class="text-center"><a href="javascript:void(0)" class="delete-student" (click)="deleteStudentFromSection(student.id)"><i class="fa fa-times"></i></a></td>
                               
                           </tr>
@@ -191,6 +198,12 @@
                               <td class="text-white h4 text-center" *ngIf="selectedStudent">{{selectedStudent.name}}</td>
                               <td class="text-white h4 text-center" *ngIf="selectedStudent">{{selectedStudent.preferred_name}}</td>
                               <td class="text-white h4 text-center" *ngIf="selectedStudent">{{selectedStudent.email}}</td>
+                              <td class="text-white h4 text-center" *ngIf="selectedStudent"><label for="helper-type"></label>
+                                <select name="helper-type" id="helper-type">
+                                  <option value="hand">Hand</option>
+                                  <option value="hand">Fist</option>
+                                  <option value="hand">Expert</option>
+                                </select></td>
                               <td class="text-center" *ngIf="selectedStudent"><a href="javascript:void(0)" class="text-white" (click)="addStudentToSection(selectedStudent.id); setTutorialStatus(getTutorialStatus(),5)"><i class="fa fa-check"></i></a>
                                 <div *ngIf="getTutorialStatus() == 1 && getTutorialSubStatus() != 5" [popper]="pop2"
                                   [popperShowOnStart]="true"
@@ -205,6 +218,7 @@
                                   </popper-content>
                                 </div>
                               </td>
+                              <td *ngIf="!selectedStudent"></td>
                               <td *ngIf="!selectedStudent"></td>
                               <td *ngIf="!selectedStudent"></td>
                               <td *ngIf="!selectedStudent"></td>
