@@ -510,8 +510,11 @@ export class SectionStudentManagementComponent implements OnInit {
    * Update helper role of selected student
    */
   updateHelperRole(studentId) {
+    //gets the selected index of the drop down list, adds 1 to be accurate with the helper value
+    let role = ((document.getElementById("helper-type")) as HTMLSelectElement).value;
+  
     console.log(studentId);
-    console.log("ahhh");
+    console.log(role);
   }
 
   /**
