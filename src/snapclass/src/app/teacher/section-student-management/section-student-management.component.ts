@@ -506,7 +506,10 @@ export class SectionStudentManagementComponent implements OnInit {
     });
   }
 
-  setStudentTo(studentId) {
+  /**
+   * Update helper role of selected student
+   */
+  updateHelperRole(studentId) {
     console.log(studentId);
     console.log("ahhh");
   }
