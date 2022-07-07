@@ -174,7 +174,7 @@
                               <td class="h4 text-center">{{ student.preferred_name }}</td>
                               <td class="h4 text-center">{{ student.email }}</td>
                               <td class="h4 text-center"><label for="helper-type"></label>
-                                <select name="helper" id="helper-type" (change)="updateHelperRole(student.id, this.value)">
+                                <select name="helper" id="helper-type" (change)="updateHelperRole($event, student.id)">
                                   <option value="1">Non-Helper</option>
                                   <option value="2">Helper</option>
                                 </select></td>

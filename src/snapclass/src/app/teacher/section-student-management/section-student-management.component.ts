@@ -509,12 +509,20 @@ export class SectionStudentManagementComponent implements OnInit {
   /**
    * Update helper role of selected student
    */
-  updateHelperRole(studentId) {
+  updateHelperRole(event: any, studentId) {
     //gets the selected index of the drop down list, adds 1 to be accurate with the helper value
-    let role = ((document.getElementById("helper-type")) as HTMLSelectElement).value;
+    let role = event.target.value;
   
     console.log(studentId);
-    console.log(role);
+    console.log(event.target.value);
+    let userForm = {helper: role};
+    //this does not quite work yet
+    this.apiService.putUser(userForm, studentId)
+    .subscribe(res => {
+      if (res["success"]) {
+        this.alertService.setSuccessHTML(res["message"]);
+      }
+    });
   }
 
   /**
