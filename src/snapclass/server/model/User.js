@@ -44,38 +44,12 @@ exports.addUser = function (data, callback) {
         );
       } else { //sucessful
         roleModel.addUserRole(data.role, response.insertId, function () {});
-
-        //helperModel.addHelperRole(data.helper, response.insertId, function () {});
         callback(
           formatter.getEmptyValidResponse("Account successfully created!")
         );
       }
     }
   });
-  // db.insert("user", data.helper, function (err, response) {
-  //   if (err) {
-  //     if (err.code === "ER_DUP_ENTRY") {
-  //       callback(formatter.getDefaultInvalidResponse("Username already exists in SnapClass"));
-  //     } else {
-  //       callback(formatter.getDatabaseErrorResponse(err));
-  //     }
-  //   } else {
-  //     if (response.length == 0) {
-  //       callback(
-  //         formatter.getDefaultInvalidResponse(
-  //           "User account not successfully created"
-  //         )
-  //       );
-  //     } else {
-  //       //roleModel.addUserRole(data.role, response.insertId, function () {});
-
-  //       // roleModel.addHelperRole(data.role, response.insertId, function () {});
-  //       callback(
-  //         formatter.getEmptyValidResponse("Account successfully created!")
-  //       );
-  //     }
-  //   }
-  // });
 };
 
 /* Update user (NOT including password changes since passwords are stored on cloud) */

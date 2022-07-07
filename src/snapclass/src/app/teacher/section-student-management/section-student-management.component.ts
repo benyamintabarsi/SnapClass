@@ -506,9 +506,9 @@ export class SectionStudentManagementComponent implements OnInit {
     });
   }
 
-  setStudentTo(username) {
-    console.log(username)
-    console.log(document.getElementById("helper-type").click)
+  setStudentTo(studentId) {
+    console.log(studentId);
+    console.log("ahhh");
   }
 
   /**
