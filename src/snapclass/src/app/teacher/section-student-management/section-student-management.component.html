@@ -174,7 +174,7 @@
                               <td class="h4 text-center">{{ student.preferred_name }}</td>
                               <td class="h4 text-center">{{ student.email }}</td>
                               <td class="h4 text-center"><label for="helper-type"></label>
-                                <select name="helper-type" id="helper-type">
+                                <select name="helper-type" id="helper-type" onChange="setStudentTo(selectedStudent.id)">
                                   <option value="hand">Hand</option>
                                   <option value="hand">Fist</option>
                                   <option value="hand">Expert</option>

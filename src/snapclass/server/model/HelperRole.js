@@ -11,8 +11,8 @@ module.exports.enum = HelperEnum;
 
 // Needed ?
 exports.addHelperRole = function(helperId, userId, callback) {
-    var helperRole = {helper_id: helperId.helper_id, user_id: userId };
-    db.insert('helper_user', helperRole , function(err, response) {
+    var helperRole = {helper: helperId.helper, user_id: userId };
+    db.insert('user', helperRole , function(err, response) {
         if (err) {
             callback(formatter.getDatabaseErrorResponse(err));
         } else  {

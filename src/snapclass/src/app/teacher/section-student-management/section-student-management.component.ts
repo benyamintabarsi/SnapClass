@@ -283,6 +283,7 @@ export class SectionStudentManagementComponent implements OnInit {
    onSubmit() {
     console.log("hello hi") 
     var bool = false;
+
     var  studentForm1 = {user: this.studentForm1.value, role: {role_id: 2}};
     this.spinner.show();
     this.apiService.postUser(studentForm1)
@@ -503,6 +504,11 @@ export class SectionStudentManagementComponent implements OnInit {
         this.back();
       }
     });
+  }
+
+  setStudentTo(username) {
+    console.log(username)
+    console.log(document.getElementById("helper-type").click)
   }
 
   /**

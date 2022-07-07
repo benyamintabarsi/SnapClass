@@ -61,20 +61,44 @@ export class APIService {
      * @param userForm user account information
      */
     postUser(userForm): Observable<any> {
+        var userInfo;
+        if (userForm.role.role_id == 1) { //teacher
+        userInfo = {user: {
+            name: userForm.name,
+            username: userForm.username,
+            preferred_name: userForm.preferred_name,
+            email: userForm.email,
+            helper: 3
+            }, role: {role_id: 1}};
+        } else if (userForm.role.role_id == 2) { //student
+            userInfo = {user: {
+                name: userForm.name,
+                username: userForm.username,
+                preferred_name: userForm.preferred_name,
+                email: userForm.email,
+                helper: 1
+                }, role: {role_id: 2}};
+        } else { //other
+            userInfo = {user: {
+                name: userForm.name,
+                username: userForm.username,
+                preferred_name: userForm.preferred_name,
+                email: userForm.email}, role: {role_id: 3}};
+        }
         const ctx = this;
         return Observable.create(function(observer) {
 
             // Add the new user to SnapClass database
             const addUser = (existingUser) => {
-                delete userForm["user"]["pswd"]; // Don't need to store password locally
-                ctx.http.post(ctx.baseUrl + 'api/v1/users', userForm)
+                //delete userForm["user"]["pswd"]; // Don't need to store password locally
+                ctx.http.post(ctx.baseUrl + 'api/v1/users', userInfo)
                 .pipe(
                     map(ctx.extractData),
                     catchError(ctx.handleError<any>('Adding user'))
                 ).subscribe((res) => {
                     // Pass to parent observable
                     if (existingUser) {
-                        res.message = `Your new account is now connected to your existing Snap cloud account, ${userForm["user"]["username"]}`;
+                        res.message = `Your new account is now connected to your existing Snap cloud account, ${userInfo["user"]["username"]}`;
                     } else {
                         res.message += ` You must verify your account by email within 3 days or it will be suspended.`
                     }
