@@ -61,29 +61,16 @@ export class APIService {
      * @param userForm user account information
      */
     postUser(userForm): Observable<any> {
-        var userInfo;
-        if (userForm.role.role_id == 1) { //teacher
-        userInfo = {user: {
-            name: userForm.name,
-            username: userForm.username,
-            preferred_name: userForm.preferred_name,
-            email: userForm.email,
+        //initialize to teacher
+        var userInfo  = {user: {
+            name: userForm.user.name,
+            username: userForm.user.username,
+            preferred_name: userForm.user.preferred_name,
+            email: userForm.user.email,
             helper: 3
-            }, role: {role_id: 1}};
-        } else if (userForm.role.role_id == 2) { //student
-            userInfo = {user: {
-                name: userForm.name,
-                username: userForm.username,
-                preferred_name: userForm.preferred_name,
-                email: userForm.email,
-                helper: 1
-                }, role: {role_id: 2}};
-        } else { //other
-            userInfo = {user: {
-                name: userForm.name,
-                username: userForm.username,
-                preferred_name: userForm.preferred_name,
-                email: userForm.email}, role: {role_id: 3}};
+            }, role: {role_id: userForm.role.role_id}};
+        if (userForm.role.role_id == 2) { //if student
+            userInfo.user.helper = 1 //set helper to 1 (non-helper)
         }
         const ctx = this;
         return Observable.create(function(observer) {
