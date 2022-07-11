@@ -173,9 +173,14 @@
                               <td class="h4 text-center">{{ student.name }}</td>
                               <td class="h4 text-center">{{ student.preferred_name }}</td>
                               <td class="h4 text-center">{{ student.email }}</td>
-                              <td class="h4 text-center"><label for="helper-type"></label>
-                                <select name="helper" id="helper-type" (change)="updateHelperRole($event, student.id)">
+                              <td *ngIf = "student.helper == 2" class="h4 text-center">
+                                <select id="helper-type" (change)="updateHelperRole($event, student.id)">
                                   <option value="1">Non-Helper</option>
+                                  <option value="2" selected>Helper</option>
+                                </select></td>
+                              <td *ngIf = "student.helper == 1" class="h4 text-center">
+                                <select id="helper-type" (change)="updateHelperRole($event, student.id)">
+                                  <option value="1" selected>Non-Helper</option>
                                   <option value="2">Helper</option>
                                 </select></td>
                               <td class="text-center"><a href="javascript:void(0)" class="delete-student" (click)="deleteStudentFromSection(student.id)"><i class="fa fa-times"></i></a></td>

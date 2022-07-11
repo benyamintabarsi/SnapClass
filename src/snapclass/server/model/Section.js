@@ -83,7 +83,7 @@ exports.deleteSection = function(id, callback) {
  * Get all students in section
  */
 exports.getStudentsInSection = function(sectionId, callback) {
-    db.query("SELECT user.id, user.username, user.name, user.preferred_name, user.email FROM students_in_section INNER JOIN user ON students_in_section.user_id = user.id WHERE students_in_section.section_id ='" + sectionId + "'", (err, response) => {
+    db.query("SELECT user.id, user.username, user.name, user.preferred_name, user.email, user.helper FROM students_in_section INNER JOIN user ON students_in_section.user_id = user.id WHERE students_in_section.section_id ='" + sectionId + "'", (err, response) => {
         if (err) {
             callback(formatter.getDatabaseErrorResponse(err));
         } else {
