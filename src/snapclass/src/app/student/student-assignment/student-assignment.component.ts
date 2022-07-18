@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
+import { AlertService } from '../../services/alert.service';
 import { User } from '../../models/user.model';
 import { ActivatedRoute } from '@angular/router';
 import { loadSnap, saveSnap, sendMessage, newSnap } from '../../../assets/js/snap';
@@ -36,6 +37,7 @@ export class StudentAssignmentComponent implements OnInit {
   constructor(
     private apiService: APIService,
     private authService: AuthService,
+    private alertService: AlertService,
     private modalService: NgbModal,
     private router: ActivatedRoute,
     private navService: NavBarService) {}
@@ -138,6 +140,28 @@ export class StudentAssignmentComponent implements OnInit {
       });
     }
   }
+  
+
+  getHelp(event: any) {
+    console.log(this.user.id);
+    console.log(this.user.name);
+    console.log(this.user.preferred_name);
+    console.log(this.user.email);
+    console.log(this.user.helper);
+
+    this.apiService.postHelp(this.user)
+      .subscribe(
+        res => {
+          if (res["success"]) {
+            this.alertService.setSuccessHTML(res["message"]);
+          }
+          else {
+            this.alertService.setErrorHTML(res["message"]);
+          }
+        }
+      );
+  }
+
 
   open(content) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {

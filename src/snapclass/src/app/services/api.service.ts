@@ -4,6 +4,7 @@ import { AlertService } from '../services/alert.service';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Cloud } from './cloud.service';
+import { threadId } from 'worker_threads';
 
 
 /**
@@ -154,6 +155,7 @@ export class APIService {
         });
     }
 
+
     /**
      * GET user account information
      * @param id user ID
@@ -257,6 +259,29 @@ export class APIService {
             );
         });
     }
+
+    /**
+     * Post help request
+     * @param helpForm  help request information
+     */
+     postHelp(helpForm): Observable<any> {
+        var userInfo  = {
+            id: helpForm.id,
+            username: helpForm.username,
+            preferred_name: helpForm.preferred_name,
+            account_type: helpForm.role,
+            email: helpForm.email,
+            helper: helpForm.helper
+        };
+        const ctx = this;
+        return this.http
+        .post(this.baseUrl + "api/v1/help", userInfo)
+        .pipe(
+            map(this.extractData),
+            catchError(this.handleError<any>("Posting help"))
+        );
+    }
+
 
     //-----------------------------------
     // COURSE API

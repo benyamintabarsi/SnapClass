@@ -30,9 +30,10 @@
       <div class="row pt-5 pb-3 h4 justify-content-center">
         Help
       </div>
+      <!-- *ngIf = "student.helper == 2" -->
       <div align="center">
-        <input type="image" src="/assets/help.png"  height="70" width="80" />
-        <input type="image" src="/assets/expert.png"  height="70" width="80" />
+        <input type="image" src="/assets/help.png"  height="70" width="80" (click)="getHelp($event)"/>
+        <input type="image" src="/assets/expert.png"  height="70" width="80" (click)="getHelp($event)"/>
 
       </div>
 

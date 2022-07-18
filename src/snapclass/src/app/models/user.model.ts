@@ -37,6 +37,11 @@ interface userInterface {
      */
     activeSection: number;
 
+    /**
+     * User helper role
+     */
+    helper: number;
+
     // account_type: number;
 }
 
@@ -97,6 +102,10 @@ export class User implements userInterface {
         return this.data.activeSection;
     }
 
+    get helper(): number {
+        return this.data.helper;
+    }
+
     // get accountType() : number {
     //     return this.data.account_type;
     // }
@@ -108,7 +117,5 @@ export class User implements userInterface {
     setActiveSection(activeSection) {
          this.data.activeSection = activeSection;
      }
-
-
 
 }

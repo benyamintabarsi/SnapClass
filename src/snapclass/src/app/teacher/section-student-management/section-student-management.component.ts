@@ -284,7 +284,7 @@ export class SectionStudentManagementComponent implements OnInit {
     console.log("hello hi") 
     var bool = false;
 
-    var  studentForm1 = {user: this.studentForm1.value, role: {role_id: 2}};
+    var studentForm1 = {user: this.studentForm1.value, role: {role_id: 2}};
     this.spinner.show();
     this.apiService.postUser(studentForm1)
       .subscribe(

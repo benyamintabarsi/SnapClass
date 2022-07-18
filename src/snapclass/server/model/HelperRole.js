@@ -2,8 +2,8 @@ const db = require('../routes/db');
 const formatter = require('../ResponseFormatter');
 
 const HelperEnum = {
-    HAND: 1,
-    FIST: 2,
+    NON_HELPER: 1,
+    HELPER: 2,
     EXPERT: 3,
 };
 

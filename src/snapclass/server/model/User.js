@@ -3,7 +3,7 @@ const roleModel = require("./Role");
 const config = require("../routes/config");
 const jwt = require("jsonwebtoken");
 const formatter = require("../ResponseFormatter.js");
-const helperModel = require("./HelperRole");
+
 
 /**
  * Get user information by id

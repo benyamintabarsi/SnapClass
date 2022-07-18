@@ -52,6 +52,18 @@ app.use("/api/v1/users", login);
 //-----------------------------------------
 
 /**
+ * Add POST helper route to server
+ */
+ const addHelp = require("./help/post-help");
+ app.use("/api/v1/help", addHelp);
+ 
+ /**
+  * Add PUT helper route to server
+  */
+ const editHelp = require("./help/put-help");
+ app.use("/api/v1/help", editHelp);
+
+/**
  * Add GET students by partial username route to server
  */
 const fetchStudents = require("./students/fetch-students");
