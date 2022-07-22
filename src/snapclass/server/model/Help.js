@@ -1,17 +1,10 @@
 const db = require("../routes/db");
 const config = require("../routes/config");
 const formatter = require("../ResponseFormatter.js");
-//const helperModel = require("./HelperRole");
 
 /* Adds help request to the help table in the database. */
 exports.addHelpReq = function (data, callback) {
-    // if (!data.user || !data.role) {
-    //   callback(
-    //     formatter.getInvalidResponse(404, "")
-    //   );
-    //   return;
-    // }
-    var helpRequest = data.user; // data.user or data.help?
+    var helpRequest = data;
     db.insert("help", helpRequest, function (err, response) {
       if (err) {
         callback(formatter.getDatabaseErrorResponse(err));
@@ -23,7 +16,6 @@ exports.addHelpReq = function (data, callback) {
             )
           );
         } else { //sucessful
-          //roleModel.addUserRole(data.role, response.insertId, function () {});
           callback(
             formatter.getEmptyValidResponse("Help Requested!")
           );
@@ -32,7 +24,7 @@ exports.addHelpReq = function (data, callback) {
     });
   };
   
-  /* Update user (NOT including password changes since passwords are stored on cloud) */
+  /* Update help request */
   exports.updateHelpReq = function (userId, data, callback) {
     db.update(
       "help",

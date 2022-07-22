@@ -141,14 +141,10 @@ export class StudentAssignmentComponent implements OnInit {
     }
   }
   
-
-  getHelp(event: any) {
-    console.log(this.user.id);
-    console.log(this.user.name);
-    console.log(this.user.preferred_name);
-    console.log(this.user.email);
-    console.log(this.user.helper);
-
+  /**
+   * Post help request
+   */
+  submitHelp(event: any) {
     this.apiService.postHelp(this.user)
       .subscribe(
         res => {

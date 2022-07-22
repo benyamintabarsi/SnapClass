@@ -192,6 +192,7 @@ export class SectionStudentManagementComponent implements OnInit {
     });
   }
 
+
   /**
    * Add student to section
    * @param studentId student ID
