@@ -57,11 +57,6 @@ app.use("/api/v1/users", login);
  const addHelpReq = require("./help/post-help");
  app.use("/api/v1/help", addHelpReq);
  
- /**
-  * Add PUT help route to server
-  */
- const editHelpReq = require("./help/put-help");
- app.use("/api/v1/help", editHelpReq);
 
 /**
  * Add GET students by partial username route to server
