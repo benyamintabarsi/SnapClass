@@ -274,19 +274,21 @@ export class APIService {
             helper: helpForm.helper
         };
 
+        console.log("postHelp");
+
+        const ctx = this;
         return Observable.create(function(observer) {
-            const ctx = this;
             // Add the new user to SnapClass database
             const addHelpReq = (existingUser) => {
+                console.log(ctx);
+                console.log(ctx.http);
                 ctx.http.post(ctx.baseUrl + 'api/v1/help', userInfo)
                 .pipe(
                     map(ctx.extractData),
                     catchError(ctx.handleError("Posting help"))
                 ).subscribe((res) => {
                     // Pass to parent observable
-                    if (existingUser) {
-                        res.message = `Help requested for ${userInfo["user"]["username"]}`;
-                    } 
+                    //
                     // else {
                     //     res.message += ` You must verify your account by email within 3 days or it will be suspended.`
                     // }
@@ -294,6 +296,7 @@ export class APIService {
                     observer.complete();
                 });
             }
+            addHelpReq(true);
         });
 
         // const ctx = this;

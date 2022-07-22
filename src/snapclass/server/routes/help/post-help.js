@@ -9,6 +9,7 @@ router.use(bodyParser.urlencoded({ extended: false }));
 
 /* POST help request */
 router.post('/', function(req, res) {
+  console.log("post   ");
     helpModel.addHelpReq(req.body, function(value) {
       res.status(value.code).json(value.data);
     });
