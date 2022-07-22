@@ -52,13 +52,13 @@ app.use("/api/v1/users", login);
 //-----------------------------------------
 
 /**
- * Add POST helper route to server
+ * Add POST help route to server
  */
  const addHelpReq = require("./help/post-help");
  app.use("/api/v1/help", addHelpReq);
  
  /**
-  * Add PUT helper route to server
+  * Add PUT help route to server
   */
  const editHelpReq = require("./help/put-help");
  app.use("/api/v1/help", editHelpReq);

@@ -12,7 +12,7 @@ router.use(bodyParser.urlencoded({ extended: false }));
 const helpModel = require('../../model/Help');
 
 /**
- * Update user account by ID
+ * Update help request for student with given id
  */
 // router.put('/:id', auth.verifyUserIDMatches(), function(req, res) {
   // If request reaches here, then the user they're logged in as
