@@ -56,6 +56,12 @@ app.use("/api/v1/users", login);
  */
  const addHelpReq = require("./help/post-help");
  app.use("/api/v1/help", addHelpReq);
+
+ /**
+ * Add POST help route to server
+ */
+  const getHelpReq = require("./help/get-help");
+  app.use("/api/v1/help", getHelpReq);
  
 
 /**

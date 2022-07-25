@@ -27,8 +27,8 @@ exports.addHelpReq = function (data, callback) {
 /**
  * Get id of student who requested help
  */
-exports.getHelpReq = function (id, callback) {
-  db.findByPrimaryKey("help", id, function (err, response) {
+exports.getHelpReq = function (helpReqId, callback) {
+  db.findByPrimaryKey("help", helpReqId, function (err, response) {
     if (err) {
       callback(formatter.getDatabaseErrorResponse(err));
     } else {
@@ -38,22 +38,3 @@ exports.getHelpReq = function (id, callback) {
     }
   });
 };
-  
-  // /* Update help request */
-  // exports.updateHelpReq = function (userId, data, callback) {
-  //   db.update(
-  //     "help",
-  //     data,
-  //     { id: { operator: "=", value: userId } },
-  //     function (err, response) {
-  //       if (err) {
-  //         callback(formatter.getDatabaseErrorResponse(err));
-  //       } else
-  //         callback(
-  //           formatter.getEmptyValidResponse(
-  //             "Help request status was successfully updated!"
-  //           )
-  //         );
-  //     }
-  //   );
-  // };

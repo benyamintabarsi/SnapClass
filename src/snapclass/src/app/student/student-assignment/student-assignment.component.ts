@@ -15,6 +15,8 @@ import { NavBarService } from '../../services/navbar.service';
 })
 export class StudentAssignmentComponent implements OnInit {
 
+  helpRequested: boolean;
+
   assignment: any;
 
   assignmentID: number;
@@ -55,6 +57,7 @@ export class StudentAssignmentComponent implements OnInit {
     
 
    });
+   this.helpRequested = false;
   }
 
   /**
@@ -145,7 +148,8 @@ export class StudentAssignmentComponent implements OnInit {
    * Post help request
    */
   submitHelp(event: any) {
-    this.apiService.postHelp(this.user)
+      this.helpRequested = true;
+      this.apiService.postHelp(this.user)
       .subscribe(
         res => {
           if (res["success"]) {

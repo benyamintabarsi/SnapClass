@@ -14,9 +14,6 @@ router.use(bodyParser.urlencoded({ extended: false }));
  */
 router.get("/:id", function (req, res) {
   helpModel.getHelpReq(req.params.id, function (value) {
-    // if (value.data.user) {
-    //   delete value.data.user.pswd;
-    // }
     res.status(value.code).json(value.data);
   });
 });
