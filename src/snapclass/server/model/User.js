@@ -4,6 +4,7 @@ const config = require("../routes/config");
 const jwt = require("jsonwebtoken");
 const formatter = require("../ResponseFormatter.js");
 
+
 /**
  * Get user information by id
  */
@@ -41,9 +42,8 @@ exports.addUser = function (data, callback) {
             "User account not successfully created"
           )
         );
-      } else {
+      } else { //sucessful
         roleModel.addUserRole(data.role, response.insertId, function () {});
-        // roleModel.addHelperRole(data.role, response.insertId, function () {});
         callback(
           formatter.getEmptyValidResponse("Account successfully created!")
         );

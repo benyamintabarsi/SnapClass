@@ -192,6 +192,7 @@ export class SectionStudentManagementComponent implements OnInit {
     });
   }
 
+
   /**
    * Add student to section
    * @param studentId student ID
@@ -283,7 +284,8 @@ export class SectionStudentManagementComponent implements OnInit {
    onSubmit() {
     console.log("hello hi") 
     var bool = false;
-    var  studentForm1 = {user: this.studentForm1.value, role: {role_id: 2}};
+
+    var studentForm1 = {user: this.studentForm1.value, role: {role_id: 2}};
     this.spinner.show();
     this.apiService.postUser(studentForm1)
       .subscribe(
@@ -501,6 +503,25 @@ export class SectionStudentManagementComponent implements OnInit {
     .subscribe(res => {
       if (res["success"]) {
         this.back();
+      }
+    });
+  }
+
+  /**
+   * Update helper role of selected student
+   */
+  updateHelperRole(event: any, studentId) {
+    //gets the selected index of the drop down list
+    let role = event.target.value;
+    let userForm = {
+      helper: role
+    };
+    this.apiService.putUser(userForm, studentId)
+    .subscribe(res => {
+      if (res["success"]) {
+        this.alertService.setSuccessHTML(res["message"]);
+      } else {
+        this.alertService.setErrorHTML(res["message"]);
       }
     });
   }

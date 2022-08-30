@@ -4,6 +4,7 @@ import { AlertService } from '../services/alert.service';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Cloud } from './cloud.service';
+import { threadId } from 'worker_threads';
 
 
 /**
@@ -61,20 +62,31 @@ export class APIService {
      * @param userForm user account information
      */
     postUser(userForm): Observable<any> {
+        //initialize to teacher
+        var userInfo  = {user: {
+            name: userForm.user.name,
+            username: userForm.user.username,
+            preferred_name: userForm.user.preferred_name,
+            email: userForm.user.email,
+            helper: 3
+            }, role: {role_id: userForm.role.role_id}};
+        if (userForm.role.role_id == 2) { //if student
+            userInfo.user.helper = 1 //set helper to 1 (non-helper)
+        }
         const ctx = this;
         return Observable.create(function(observer) {
 
             // Add the new user to SnapClass database
             const addUser = (existingUser) => {
-                delete userForm["user"]["pswd"]; // Don't need to store password locally
-                ctx.http.post(ctx.baseUrl + 'api/v1/users', userForm)
+                //delete userForm["user"]["pswd"]; // Don't need to store password locally
+                ctx.http.post(ctx.baseUrl + 'api/v1/users', userInfo)
                 .pipe(
                     map(ctx.extractData),
                     catchError(ctx.handleError<any>('Adding user'))
                 ).subscribe((res) => {
                     // Pass to parent observable
                     if (existingUser) {
-                        res.message = `Your new account is now connected to your existing Snap cloud account, ${userForm["user"]["username"]}`;
+                        res.message = `Your new account is now connected to your existing Snap cloud account, ${userInfo["user"]["username"]}`;
                     } else {
                         res.message += ` You must verify your account by email within 3 days or it will be suspended.`
                     }
@@ -142,6 +154,7 @@ export class APIService {
             
         });
     }
+
 
     /**
      * GET user account information
@@ -246,6 +259,38 @@ export class APIService {
             );
         });
     }
+
+    /**
+     * Post help request
+     * @param helpForm  help request information
+     */
+     postHelp(helpForm): Observable<any> {
+        var userInfo  = {
+            id: helpForm.id,
+            username: helpForm.username,
+            preferred_name: helpForm.preferred_name,
+            account_type: helpForm.role,
+            email: helpForm.email,
+            helper: helpForm.helper
+        };
+
+        const ctx = this;
+        return Observable.create(function(observer) {
+            // Add help request to table
+            const addHelpReq = (existingUser) => {
+                ctx.http.post(ctx.baseUrl + 'api/v1/help', userInfo)
+                .pipe(
+                    map(ctx.extractData),
+                    catchError(ctx.handleError("Posting help"))
+                ).subscribe((res) => {
+                    observer.next(res);
+                    observer.complete();
+                });
+            }
+            addHelpReq(true);
+        });
+    }
+
 
     //-----------------------------------
     // COURSE API
